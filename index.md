@@ -47,8 +47,11 @@ Thinkphp扩展插件包大全：
 https://sites.thinkphp.cn/1556332
 ```
 
-## git版本回退
+## git仓库地址和版本回退
 ```
+查看仓库地址
+git remote -v
+
 未提交
 1.已经在工作区修改文件，但还未执行 git add 提交到暂存区。
 2.已经执行了 git add，但还未执行 git commit 提交本地仓库。
