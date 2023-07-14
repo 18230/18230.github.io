@@ -47,6 +47,25 @@ Thinkphp扩展插件包大全：
 https://sites.thinkphp.cn/1556332
 ```
 
+## Linux杀掉指定端口上的程序
+```
+
+#!/bin/bash
+
+# 定义要杀掉的端口号
+port=8888
+
+# 查找占用指定端口的程序的PID
+pid=$(lsof -t -i :$port)
+
+# 杀掉对应的进程
+if [[ -n $pid ]]; then
+  kill -9 $pid
+else
+  echo "No process found on port $port"
+fi
+```
+
 ## git仓库地址和版本回退
 ```
 查看仓库地址
