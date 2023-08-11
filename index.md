@@ -66,7 +66,7 @@ else
 fi
 ```
 
-## git仓库地址和版本回退
+## git常用操作命令
 ```
 查看仓库地址
 git remote -v
@@ -89,6 +89,13 @@ git reset --hard origin/master
 已推送回退(示例)：
 git reset --hard HEAD^
 git push -f
+
+设置和取消代理
+git config --global http.proxy socks5://127.0.0.1:7890
+git config --global https.proxy socks5://127.0.0.1:7890
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
 ```
 
 ## git钩子
