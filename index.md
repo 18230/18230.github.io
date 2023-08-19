@@ -157,7 +157,8 @@ server {
 
     location / {
         if (!-e $request_filename) {
-            rewrite  ^(.*)$  /index.php?s=$1  last;
+            #rewrite  ^(.*)$  /index.php?s=$1  last;
+            try_files $uri $uri/ /index.php?$args;
         }
     }
 

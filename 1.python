@@ -1,0 +1,12 @@
+import time
+
+# 获取当前的UNIX时间戳
+now = int(time.time())
+
+# 获取当前小时开始的UNIX时间戳
+start_hour_time = now - (now % 3600)
+
+# 获取10分钟前的UNIX时间戳
+timestamp_threshold = now - 600
+
+print(now, start_hour_time, timestamp_threshold)
