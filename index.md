@@ -144,7 +144,6 @@ server {
     listen  443 ssl;
     server_name ~^(?<profix>\w+)\.skeep\.cc$;
     root    /data/kdgood/$profix/public;
-    index  	index.html index.htm index.php; 
 
     ssl_certificate /data/kdgood/ssl/$ssl_server_name.crt;
     ssl_certificate_key /data/kdgood/ssl/$ssl_server_name.key;
@@ -156,9 +155,11 @@ server {
     ssl_prefer_server_ciphers   on;
 
     location / {
+        index  	index.html index.htm index.php; 
+        
         if (!-e $request_filename) {
-            #rewrite  ^(.*)$  /index.php?s=$1  last;
-            try_files $uri $uri/ /index.php?$args;
+            rewrite  ^(.*)$  /index.php?s=/$1  last;
+            break;
         }
     }
 
