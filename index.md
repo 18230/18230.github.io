@@ -66,6 +66,25 @@ else
 fi
 ```
 
+## Docker常用
+```
+安装docker及docker compose
+curl -fsSL https://get.docker.com -o get-docker.sh && sh ./get-docker.sh
+
+检查docker是否安装成功
+docker -v
+docker compose version
+
+下载docker-compose.yaml
+wget https://www.888.com/m1k1o/neko/master/docker-compose.yaml
+
+启动docker程序
+sudo docker compose up -d
+
+停止Docker Compose中指定的服务
+docker-compose stop [服务名称]
+```
+
 ## git常用操作命令
 ```
 查看仓库地址
@@ -280,6 +299,11 @@ sudo vim /etc/sudoers （增加nginx或者fpm可以免密执行登录）
 ## 开源实现的web视频播放器
 ```
 https://github.com/goldvideo/h265player
+```
+
+## windows从linux下载文件
+```
+scp root@0.0.0.0:/data/linux/a.txt /path/on/windows/b.txt
 ```
 
 ## windows批处理命令执行git操作
