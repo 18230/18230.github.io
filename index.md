@@ -78,8 +78,11 @@ docker compose version
 下载docker-compose.yaml
 wget https://www.888.com/m1k1o/neko/master/docker-compose.yaml
 
-启动docker程序
+启动docker程序（docker-compose.yml所在目录）
 sudo docker compose up -d
+
+重启（docker-compose.yml所在目录）
+docker-compose restart
 
 停止Docker Compose中指定的服务
 docker-compose stop [服务名称]
