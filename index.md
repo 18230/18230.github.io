@@ -113,6 +113,29 @@ git reset --hard HEAD^
 git push -f
 
 
+git单仓库多人协作流程（由chatgpt-4生成）
+1. 克隆仓库
+git clone https://www.xxx.com/a.git
+
+2. 确保仓库最新
+git pull origin master 
+
+3. 创建并切换新分支
+git checkout -b 新分支
+
+4. 修改完成后提交
+git add .
+git commit -m "commit"
+
+5. 同步主分支的更改
+git pull origin master 确保主分支最新
+git merge master 合并
+
+6. 如果冲突，解决冲突后推送分支
+git push origin 新分支名 推送
+git push origin 本地分支:远程分支 推送到远程指定分支
+
+
 查看代理：
 git config --global --get http.proxy
 git config --global --get https.proxy
