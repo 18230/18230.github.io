@@ -113,6 +113,7 @@ git reset --hard HEAD^
 git push -f
 
 
+------------------------------------------------
 git单仓库多人协作流程（由chatgpt-4生成）
 1. 克隆仓库
 git clone https://www.xxx.com/a.git
@@ -134,6 +135,7 @@ git merge master 合并
 6. 如果冲突，解决冲突后推送分支
 git push origin 新分支名 推送
 git push origin 本地分支:远程分支 推送到远程指定分支
+--------------------------------------------------
 
 
 查看代理：
@@ -391,4 +393,10 @@ npm config edit
 electron_builder_binaries_mirror=http://npm.taobao.org/mirrors/electron-builder-binaries/
 electron_mirror=https://npm.taobao.org/mirrors/electron/
 registry=https://registry.npm.taobao.org/
+```
+
+### npm install安装时报错 canvas node-pre-gyp install --fallback-to-build --update-binary
+```
+单独安装
+npm install canvas --canvas_binary_host_mirror=https://registry.npmmirror.com/-/binary/canvas
 ```
