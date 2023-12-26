@@ -112,7 +112,7 @@ git reset --hard origin/master
 git reset --hard HEAD^
 git push -f
 
-git-bat自动化文件
+git的PR流程
 ------------------------------------------------
 @echo off
 chcp 65001
