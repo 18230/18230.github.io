@@ -112,29 +112,37 @@ git reset --hard origin/master
 git reset --hard HEAD^
 git push -f
 
-
+git-bat自动化文件
 ------------------------------------------------
-git单仓库多人协作流程（由chatgpt-4生成）
-1. 克隆仓库
-git clone https://www.xxx.com/a.git
+@echo off
+chcp 65001
+SET /P branchName="请输入要提交的分支名称: "
+SET /P commitMessage="请输入commit提交信息: "
 
-2. 确保仓库最新
-git pull origin master 
-
-3. 创建并切换新分支
-git checkout -b 新分支
-
-4. 修改完成后提交
+REM 添加所有更改
 git add .
-git commit -m "commit"
 
-5. 同步主分支的更改
-git pull origin master 确保主分支最新
-git merge master 合并
+REM 提交更改
+git commit -m "%commitMessage%"
 
-6. 如果冲突，解决冲突后推送分支
-git push origin 新分支名 推送
-git push origin 本地分支:远程分支 推送到远程指定分支
+REM 可选：将分支推送到远程仓库
+git push origin %branchName%
+
+echo 当前分支操作完毕。继续下一个分支操作：
+
+REM 切换到主分支
+git checkout master
+
+REM 更新主分支
+git pull origin master
+
+REM 输入下一个分支名
+SET /P nextBranchName="请输入下一个功能的分支名称: "
+
+REM 切换到下一个分支
+git checkout -b %nextBranchName%
+
+echo 切换成功，当前分支%nextBranchName%。
 --------------------------------------------------
 
 
