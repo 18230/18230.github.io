@@ -112,7 +112,16 @@ git reset --hard origin/master
 git reset --hard HEAD^
 git push -f
 
-git的PR流程
+对比上个版本的所有差异
+git diff HEAD^
+
+对比指定文件上个版本的差异
+git diff HEAD^ -- <path>
+
+对比指定文件的两个版本之间的差异
+git diff <提交ID1> <提交ID2> -- <文件路径>
+
+git的常用windows批处理
 ------------------------------------------------
 @echo off
 chcp 65001
@@ -133,16 +142,11 @@ echo 当前分支操作完毕。继续下一个分支操作：
 REM 切换到主分支
 git checkout master
 
-REM 更新主分支
-git pull origin master
-
 REM 输入下一个分支名
 SET /P nextBranchName="请输入下一个功能的分支名称: "
 
 REM 切换到下一个分支
 git checkout -b %nextBranchName%
-
-echo 切换成功，当前分支%nextBranchName%。
 --------------------------------------------------
 
 
