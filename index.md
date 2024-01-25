@@ -93,6 +93,10 @@ docker-compose stop [服务名称]
 查看仓库地址
 git remote -v
 
+暂存不提交和撤消最近一次操作
+git stash
+git stash drop
+
 未提交
 1.已经在工作区修改文件，但还未执行 git add 提交到暂存区。
 2.已经执行了 git add，但还未执行 git commit 提交本地仓库。
