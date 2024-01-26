@@ -66,6 +66,22 @@ else
 fi
 ```
 
+
+## Nginx反代远程地址
+```
+server {
+    listen 80;
+    server_name chat.xxx.com; 
+    location / {
+        proxy_pass https://chat.openai.com; 
+        proxy_set_header Host chat.openai.com; 
+        proxy_buffering off;
+        proxy_ssl_server_name on;
+    }
+}
+```
+
+
 ## Docker常用
 ```
 安装docker及docker compose
