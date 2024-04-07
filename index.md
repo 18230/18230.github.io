@@ -45,6 +45,14 @@ composer常用包：
 
 Thinkphp扩展插件包大全：
 https://sites.thinkphp.cn/1556332
+
+PHP-FPM下静默执行：
+if(function_exists('fastcgi_finish_request')) 
+{
+    set_time_limit(0);
+    ignore_user_abort(true);
+    fastcgi_finish_request();
+}
 ```
 
 ## Linux杀掉指定端口上的程序
