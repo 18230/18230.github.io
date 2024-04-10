@@ -2,12 +2,12 @@
 
 use think\facade\Db;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as WriterXlsx; 
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception; 
 
 /**
  * 格式化输出数据
@@ -36,7 +36,7 @@ function v($var)
  * @param string $channel 推送频道
  * @return void
  */
-function pusher($msg, $event = 'toast', $channel = 'hro')
+function pusher($msg, $event = 'toast', $channel = 'hro') 
 {
     $options = [
         'cluster' => 'ap1',
@@ -58,13 +58,13 @@ function pusher($msg, $event = 'toast', $channel = 'hro')
 function createExcelTemplate(array $columns, string $filename = 'example.xlsx')
 {
     $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
+    $sheet = $spreadsheet->getActiveSheet(); 
     $sheet->setTitle('Sheet1');
 
     // 数据列
     $columnLetters = range('A', 'Z');
 
-    foreach ($columns as $index => $column) {
+    foreach ($columns as $index => $column) { 
         $colLetter = $columnLetters[$index];
 
         // 设置表标题
@@ -93,7 +93,7 @@ function createExcelTemplate(array $columns, string $filename = 'example.xlsx')
             // 将下拉选项添加到远列并隐藏
             foreach ($column['options'] as $index => $option) {
                 // 设置远列的单元格值并格式转为文本，防止下拉选项被Excel自动转换为数字
-                $sheet->setCellValueExplicit('AA' . $colLetter . ($index + 1), $option, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+                $sheet->setCellValueExplicit('AA' . $colLetter . ($index + 1), $option, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING); 
 
                 // 隐藏远列
                 $sheet->getColumnDimension('AA' . $colLetter)->setVisible(false);
@@ -130,7 +130,7 @@ function createExcelTemplate(array $columns, string $filename = 'example.xlsx')
  * @param int $maxColumnCount 限定读取的最大列数
  * @return array
  */
-function readExcelFile(string $filePath, int $maxColumnCount = 0)
+function readExcelFile(string $filePath, int $maxColumnCount = 0) 
 {
     // 确保文件存在
     if (!file_exists($filePath)) {
@@ -143,7 +143,7 @@ function readExcelFile(string $filePath, int $maxColumnCount = 0)
 
     try {
         // 加载文件
-        $spreadsheet = $reader->load($filePath);
+        $spreadsheet = $reader->load($filePath); 
 
         // 获取第一个工作表
         $worksheet = $spreadsheet->getActiveSheet();
@@ -159,12 +159,12 @@ function readExcelFile(string $filePath, int $maxColumnCount = 0)
             // 设置迭代器只读取有数据的列
             $cellIterator = $row->getCellIterator(
                 'A',
-                $maxColumnCount ? \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($maxColumnCount) : null
+                $maxColumnCount ? \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($maxColumnCount) : null 
             );
             $cellIterator->setIterateOnlyExistingCells(false);
 
             foreach ($cellIterator as $cell) {
-                $cellValue = $cell->getValue();
+                $cellValue = $cell->getCalculatedValue(); 
                 $rowData[] = $cellValue;
 
                 if ($cellValue != null && $cellValue !== '') {
@@ -199,6 +199,70 @@ function readExcelFile(string $filePath, int $maxColumnCount = 0)
 }
 
 /**
+ * 导出Excel文件
+ *
+ * @param array $data 数据数组
+ * @param string $fileName 输出的文件名
+ * @param string $dirPath 保存到服务器的路径
+ * @return void
+ */
+function export(array $data, string $fileName = 'export.xlsx', string $savePath = '')
+{
+    // 初始化Spreadsheet对象
+    $spreadsheet = new Spreadsheet();
+    $activeSheet = $spreadsheet->getActiveSheet();
+
+    // 填充数据并对每列的第一行设置样式
+    foreach ($data as $rowIndex => $row) 
+    {
+        // 转换索引数组
+        $row = array_values($row);
+
+        foreach ($row as $colIndex => $col) 
+        {
+            $activeSheet->setCellValue([$colIndex + 1, $rowIndex + 1], $col);
+
+            if ($rowIndex === 0) 
+            {
+                // 加粗第一行的标题
+                $activeSheet->getStyle([$colIndex + 1, $rowIndex + 1])->getFont()->setBold(true);
+            }
+        }
+    }
+
+    $writer = new WriterXlsx($spreadsheet);
+
+    if (empty($savePath))  
+    {
+        // 设置HTTP头部信息以强制浏览器下载文件
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
+        header('Content-Disposition: attachment;filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+
+        // 释放内存
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
+        exit;
+    }
+    else  
+    {
+        if (!is_dir($savePath)) 
+        {
+            mkdir($savePath, 0777, true);
+        }
+
+        $path = $savePath . '/' . $fileName;
+        $writer->save($path); 
+
+        // 释放内存并返回文件路径
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
+        return $path;
+    }
+}
+
+/**
  * 导出Excel文件并立即下载 (此代码由ChatGPT-4构建生成)
  *
  * @param array $headerArr Excel表格的标题数组
@@ -208,7 +272,7 @@ function readExcelFile(string $filePath, int $maxColumnCount = 0)
  * @param string $dirPath 保存到服务器的路径
  * @return void
  */
-function exportToExcel(array $headerArr, array $dataArr, string $fileName = 'export.xlsx', bool $isSave = false, string $dirPath = '')
+function exportToExcel(array $headerArr, array $dataArr, string $fileName = 'export.xlsx', bool $isSave = false, string $dirPath = '') 
 {
     if (class_exists('\Cache\Adapter\Redis\RedisCachePool') && class_exists('\Cache\Bridge\SimpleCache\SimpleCacheBridge')) {
         // 设置导出时缓存
@@ -242,7 +306,7 @@ function exportToExcel(array $headerArr, array $dataArr, string $fileName = 'exp
     }
 
     // 设置HTTP头部信息以强制浏览器下载文件
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8'); 
     header('Content-Disposition: attachment;filename="' . $fileName . '"');
     header('Cache-Control: max-age=0');
 
@@ -321,7 +385,7 @@ function addZip(string $downloadZip, array $list, $isSave = false)
     {
         // 使用内置ZipArchive库 保存到服务器
         $zip = new \ZipArchive();
-        $bool = $zip->open($downloadZip, \ZipArchive::CREATE|\ZipArchive::OVERWRITE);
+        $bool = $zip->open($downloadZip, \ZipArchive::CREATE|\ZipArchive::OVERWRITE); 
 
         if(TRUE === $bool)
         {
