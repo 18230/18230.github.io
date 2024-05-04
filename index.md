@@ -43,11 +43,6 @@ composer常用包：
 文件添加ZIP格式并下载：composer require maennchen/zipstream-php
 文字转拼音：composer require overtrue/pinyin
 
-Windows下官方PHP和PHP扩展包下载地址：
-windows官方PHP团队：https://windows.php.net/team
-PHP下载地址：https://windows.php.net/downloads/releases/archives
-PHP扩展包下载地址：https://windows.php.net/downloads/pecl/releases
-
 Thinkphp扩展插件包大全：
 https://sites.thinkphp.cn/1556332
 
@@ -58,6 +53,15 @@ if(function_exists('fastcgi_finish_request'))
     ignore_user_abort(true);
     fastcgi_finish_request();
 }
+
+
+PHP和常用扩展包下载：
+windows官方PHP团队：https://windows.php.net/team
+第三方PHP扩展包下载：https://phpext.phptools.online
+PHP下载地址：https://windows.php.net/downloads/releases/archives
+PHP扩展包下载地址：https://windows.php.net/downloads/pecl/releases
+php redis扩展包下载地址：https://phpext.phptools.online/extension/database/redis-99
+PHP代码检测工具：：https://phptools.online
 ```
 
 ## Linux杀掉指定端口上的程序
