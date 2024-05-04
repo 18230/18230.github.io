@@ -43,6 +43,11 @@ composer常用包：
 文件添加ZIP格式并下载：composer require maennchen/zipstream-php
 文字转拼音：composer require overtrue/pinyin
 
+Windows下官方PHP和PHP扩展包下载地址：
+windows官方PHP团队：https://windows.php.net/team
+PHP下载地址：https://windows.php.net/downloads/releases/archives
+PHP扩展包下载地址：https://windows.php.net/downloads/pecl/releases
+
 Thinkphp扩展插件包大全：
 https://sites.thinkphp.cn/1556332
 
