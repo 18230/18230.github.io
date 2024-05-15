@@ -37,7 +37,7 @@ composer常用包：
 数 据 库：composer require topthink/think-orm
 邮件发送：composer require phpmailer/phpmailer
 二 维 码：composer require endroid/qr-code
-数据采集：composer require jaeger/querylist
+数据采集：composer require symfony/dom-crawler
 图Base64：composer require melihovv/base64-image-decoder
 
 文件添加ZIP格式并下载：composer require maennchen/zipstream-php
