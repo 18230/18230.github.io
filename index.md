@@ -1,5 +1,7 @@
 ## devkeep的笔记
 ```
+域名检测：https://www.itdog.cn/ping/
+
 永久邮箱：
 wanggaoqi888@gmail.com
 devkeep@163.com
