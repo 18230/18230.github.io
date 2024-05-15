@@ -43,9 +43,6 @@ composer常用包：
 文件添加ZIP格式并下载：composer require maennchen/zipstream-php
 文字转拼音：composer require overtrue/pinyin
 
-Thinkphp扩展插件包大全：
-https://sites.thinkphp.cn/1556332
-
 PHP-FPM下静默执行：
 if(function_exists('fastcgi_finish_request')) 
 {
