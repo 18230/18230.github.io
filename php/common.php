@@ -124,26 +124,24 @@ function createExcelTemplate(array $columns, string $filename = 'example.xlsx')
 
 
 /**
- * 读取Excel文件 (此代码由ChatGPT-4构建生成)
- *
+ * 读取Excel文件
  * @param string $filePath 要读取的文件路径
- * @param int $maxColumnCount 限定读取的最大列数
+ * @param int $maxColumnCount 限定读取的最大列数（优化空间）
+ * @param int $activeSheetIndex 要读取的工作表索引（默认为第一个）
  * @return array
  */
-function readExcelFile(string $filePath, int $maxColumnCount = 0) 
+function readExcelFile(string $filePath, int $maxColumnCount = 0, int $activeSheetIndex = 0): array
 {
-    // 确保文件存在
-    if (!file_exists($filePath)) {
-        throw new Exception('文件不存在');
-    }
-
     // 初始化Reader对象，以流式读取节省内存
     $reader = new ReaderXlsx();
     $reader->setReadDataOnly(true);
 
     try {
         // 加载文件
-        $spreadsheet = $reader->load($filePath); 
+        $spreadsheet = $reader->load($filePath);
+
+        // 设置当前活动工作表
+        $spreadsheet->setActiveSheetIndex($activeSheetIndex);
 
         // 获取第一个工作表
         $worksheet = $spreadsheet->getActiveSheet();
@@ -159,12 +157,12 @@ function readExcelFile(string $filePath, int $maxColumnCount = 0) 
             // 设置迭代器只读取有数据的列
             $cellIterator = $row->getCellIterator(
                 'A',
-                $maxColumnCount ? \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($maxColumnCount) : null 
+                $maxColumnCount ? \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($maxColumnCount) : null
             );
             $cellIterator->setIterateOnlyExistingCells(false);
 
             foreach ($cellIterator as $cell) {
-                $cellValue = $cell->getCalculatedValue(); 
+                $cellValue = $cell->getCalculatedValue();
                 $rowData[] = $cellValue;
 
                 if ($cellValue != null && $cellValue !== '') {
@@ -226,13 +224,18 @@ function export(array $data, string $fileName = 'export.xlsx', string $savePath 
             {
                 // 加粗第一行的标题
                 $activeSheet->getStyle([$colIndex + 1, $rowIndex + 1])->getFont()->setBold(true);
+
+                // 给第一行设置背景色
+                $activeSheet->getStyle([$colIndex + 1, $rowIndex + 1])->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('CCCCCC');
             }
         }
     }
 
     $writer = new WriterXlsx($spreadsheet);
 
-    if (empty($savePath))  
+    if (empty($savePath)) 
     {
         // 设置HTTP头部信息以强制浏览器下载文件
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
@@ -245,7 +248,7 @@ function export(array $data, string $fileName = 'export.xlsx', string $savePath 
         unset($spreadsheet);
         exit;
     }
-    else  
+    else 
     {
         if (!is_dir($savePath)) 
         {
@@ -253,7 +256,7 @@ function export(array $data, string $fileName = 'export.xlsx', string $savePath 
         }
 
         $path = $savePath . '/' . $fileName;
-        $writer->save($path); 
+        $writer->save($path);
 
         // 释放内存并返回文件路径
         $spreadsheet->disconnectWorksheets();
