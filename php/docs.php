@@ -7,6 +7,28 @@ $iterator = new \RecursiveIteratorIterator(
     \RecursiveIteratorIterator::SELF_FIRST
 );
 
+/**
+ * Extracts the documentation comment from a PHP token.
+ */
+function extractDocComment($comment) 
+{
+    // Remove leading and trailing comments
+    $comment = trim(preg_replace('/^\/\*\*|\*\/$/', '', $comment));
+    $lines = preg_split('/\r\n|\r|\n/', $comment);
+
+    // Remove leading asterisks
+    $lines = array_map(function($line) {
+        return trim(preg_replace('/^\s*\*\s?/', '', $line));
+    }, $lines);
+
+    // Remove empty lines
+    $lines = array_filter($lines, function($line) {
+        return !empty($line);
+    });
+
+    return $lines;
+}
+
 // 遍历所有文件
 foreach ($iterator as $file) 
 {
@@ -27,3 +49,4 @@ foreach ($iterator as $file)
         echo "Could not access file: " . $file->getPathname() . "\n";
     }
 }
+
