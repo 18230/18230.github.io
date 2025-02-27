@@ -347,6 +347,7 @@ function sendEmail(string $email, string $subject, string $body, array $attachme
 {
     $mail = new \PHPMailer\PHPMailer();
 
+    // 网易邮箱
     $mail->CharSet = 'UTF-8';               // 设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置，否则乱码
     $mail->IsSMTP();                        // 设定使用SMTP服务
     $mail->SMTPDebug = 0;                   // SMTP调试功能 0=关闭 1 = 错误和消息 2 = 消息
@@ -358,6 +359,19 @@ function sendEmail(string $email, string $subject, string $body, array $attachme
     $mail->Password = 'QSHJEFKMLGLGYFOD';   // SMTP服务器密码
     $mail->setFrom('devkeep@163.com', $subject);    // 发件人邮箱
 
+    // 谷歌邮箱
+    // MAIL_MAILER=smtp
+    // MAIL_HOST=smtp.gmail.com
+    // MAIL_PORT=587
+    // MAIL_USERNAME=wanggaoqi888@gmail.com
+    // MAIL_PASSWORD=qkvxngwnegguyfye
+    // MAIL_ENCRYPTION=tls
+    // MAIL_FROM_ADDRESS=wanggaoqi888@gmail.com
+    // MAIL_FROM_NAME="Account activation"
+
+
+
+    
     // 收件人信息
     $mail->isHTML(true);                    // 设置邮件格式为HTML
     $mail->addAddress($email);
