@@ -5,35 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>代理工具大全</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        :root {
+            --page-bg: #f5f5f4;
+            --surface: #ffffff;
+            --surface-muted: #fafaf9;
+            --line: #e7e5e4;
+            --line-strong: #d6d3d1;
+            --text: #18181b;
+            --muted: #71717a;
+            --accent: #2563eb;
+            --accent-strong: #1d4ed8;
+            --radius-xl: 0.75rem;
+            --radius-lg: 0.625rem;
+            --radius-md: 0.5rem;
+            --radius-sm: 0.4rem;
+        }
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+            background: var(--page-bg);
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            padding: 1.5rem !important;
+            border: 1px solid var(--line) !important;
+            border-radius: var(--radius-xl) !important;
+            background: var(--surface) !important;
+            box-shadow: none !important;
         }
         .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
         }
         .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transform: none;
+            box-shadow: none;
+            border-color: var(--line-strong) !important;
         }
         .platform-badge {
             /* 平台标签允许在卡片内自动换行，避免长文本撑破布局 */
             font-size: 0.6875rem;
             line-height: 1.35;
-            padding: 3px 9px;
-            border-radius: 9999px;
+            padding: 0.35rem 0.65rem;
+            border-radius: var(--radius-sm);
             max-width: 100%;
             min-width: 0;
             white-space: normal;
             overflow-wrap: anywhere;
             text-align: center;
+            font-weight: 500;
+            background: #f4f4f5 !important;
+            color: #52525b !important;
+            border: 1px solid #e4e4e7;
         }
         .tool-title {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.625rem;
             min-width: 0;
         }
         .tool-title-text {
@@ -41,30 +72,59 @@
             overflow-wrap: anywhere;
         }
         .tool-logo {
-            width: 2.25rem;
-            height: 2.25rem;
+            width: 2rem;
+            height: 2rem;
             flex: none;
-            border-radius: 0.875rem;
-            border: 1px solid rgba(148, 163, 184, 0.28);
-            box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.45);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--line);
             background: #ffffff;
+        }
+        .page-shell {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 3rem;
+        }
+        .page-header {
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--line);
+        }
+        .page-kicker {
+            margin: 0 0 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .page-title {
+            margin: 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text);
+        }
+        .page-subtitle {
+            margin: 0.65rem 0 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--muted);
         }
         .filter-panel {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 0.75rem;
-            margin-bottom: 2rem;
-            padding: 1rem 1.25rem;
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid rgba(229, 231, 235, 0.9);
-            border-radius: 1.5rem;
-            backdrop-filter: blur(10px);
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
         }
         .filter-label {
             font-size: 0.8125rem;
             font-weight: 600;
-            color: #475569;
+            color: var(--muted);
             white-space: nowrap;
         }
         .filter-group {
@@ -73,38 +133,350 @@
             gap: 0.625rem;
         }
         .filter-button {
-            border: 1px solid #dbe3f0;
-            border-radius: 9999px;
-            background: #ffffff;
-            color: #475569;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--muted);
             font-size: 0.75rem;
             line-height: 1.2;
-            padding: 0.45rem 0.9rem;
-            transition: all 0.2s ease;
+            font-weight: 500;
+            padding: 0.5rem 0.85rem;
+            transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
         }
         .filter-button:hover {
-            border-color: #93c5fd;
-            color: #1d4ed8;
-            transform: translateY(-1px);
+            border-color: var(--line-strong);
+            color: var(--text);
+            transform: none;
         }
         .filter-button.is-active {
-            background: #2563eb;
-            border-color: #2563eb;
+            background: var(--text);
+            border-color: var(--text);
             color: #ffffff;
-            box-shadow: 0 12px 20px -16px rgba(37, 99, 235, 0.9);
+            box-shadow: none;
+        }
+        .tool-meta-preview {
+            margin-bottom: 1rem;
+            padding: 0.85rem 0.95rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface-muted);
+        }
+        .tool-chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 0.65rem;
+        }
+        .tool-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.28rem 0.55rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            line-height: 1.2;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+        .tool-chip[data-tone="green"] {
+            background: #edf9f1;
+            color: #256443;
+            border-color: #dbeedf;
+        }
+        .tool-chip[data-tone="blue"] {
+            background: #eff5ff;
+            color: #2857c5;
+            border-color: #dde8ff;
+        }
+        .tool-chip[data-tone="amber"] {
+            background: #fff6e8;
+            color: #9a5b16;
+            border-color: #f6e7cb;
+        }
+        .tool-chip[data-tone="rose"] {
+            background: #fff1f2;
+            color: #b42345;
+            border-color: #f8d9de;
+        }
+        .tool-chip[data-tone="slate"] {
+            background: #f4f4f5;
+            color: #52525b;
+            border-color: #e4e4e7;
+        }
+        .tool-meta-row {
+            display: flex;
+            gap: 0.625rem;
+            align-items: flex-start;
+            font-size: 0.75rem;
+            line-height: 1.55;
+            color: #3f3f46;
+        }
+        .tool-meta-row + .tool-meta-row {
+            margin-top: 0.375rem;
+        }
+        .tool-meta-label {
+            flex: none;
+            width: 2.75rem;
+            color: var(--muted);
+        }
+        .tool-meta-value {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+        .tool-meta-value-review {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .tool-actions {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .tool-intro-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--text);
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1;
+            padding: 0.65rem 0.95rem;
+            transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+        .tool-intro-button:hover {
+            border-color: var(--line-strong);
+            color: var(--text);
+            background: var(--surface-muted);
+            transform: none;
+        }
+        .tool-intro-button:focus-visible,
+        .intro-modal-close:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        .intro-modal[hidden] {
+            display: none;
+        }
+        .intro-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .intro-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(24, 24, 27, 0.36);
+        }
+        .intro-modal-dialog {
+            position: relative;
+            width: min(720px, 100%);
+            max-height: calc(100vh - 1.5rem);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            box-shadow: none;
+        }
+        .intro-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 1.25rem 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+        .intro-modal-eyebrow {
+            margin: 0 0 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        .intro-modal-title {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .intro-modal-close {
+            flex: none;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.55rem 0.85rem;
+        }
+        .intro-modal-body {
+            padding: 1.25rem;
+            min-height: 0;
+            overflow: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-gutter: stable;
+            scrollbar-width: thin;
+            scrollbar-color: #d6d3d1 transparent;
+        }
+        .intro-modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        .intro-modal-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .intro-modal-body::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border: 1px solid transparent;
+            border-radius: 9999px;
+            background-clip: padding-box;
+        }
+        .intro-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+        .intro-field {
+            padding: 0.85rem 0.95rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface-muted);
+        }
+        .intro-field-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        .intro-field-value {
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+        .intro-field-value a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .intro-section {
+            margin-top: 1rem;
+            padding: 0.95rem 1rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+        }
+        .intro-section-title {
+            margin: 0 0 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #3f3f46;
+        }
+        .intro-section-text {
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+        .tool-card .flex.flex-wrap.gap-2.mb-8 {
+            gap: 0.45rem !important;
+            margin-bottom: 1rem !important;
+        }
+        #toolsGrid {
+            gap: 1rem !important;
+        }
+        .tool-card h3 {
+            margin-bottom: 1rem !important;
+            font-size: 1.6rem !important;
+            font-weight: 700 !important;
+            line-height: 1.15;
+            color: var(--text);
+            letter-spacing: -0.03em;
+        }
+        .tool-card > a[href] {
+            display: block;
+            margin-top: 0.15rem;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface-muted);
+            color: var(--accent) !important;
+            font-weight: 500 !important;
+            text-decoration: none;
+            line-height: 1.55;
+            transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+        .tool-card > a[href]:hover {
+            border-color: var(--line-strong);
+            background: var(--surface);
+            color: var(--accent-strong) !important;
+            text-decoration: underline;
+        }
+        .tool-card p.text-gray-500 {
+            color: var(--muted) !important;
+        }
+        body.intro-modal-open {
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .page-shell {
+                padding: 1.5rem 1rem 2rem;
+            }
+            .page-title {
+                font-size: 1.85rem;
+            }
+            .tool-card {
+                padding: 1.15rem !important;
+            }
+            .tool-card h3 {
+                font-size: 1.35rem !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .intro-modal-grid {
+                grid-template-columns: 1fr;
+            }
+            .tool-meta-row {
+                display: block;
+            }
+            .tool-meta-label {
+                display: inline-block;
+                width: auto;
+                margin-bottom: 0.15rem;
+            }
+            .page-header {
+                margin-bottom: 1.25rem;
+            }
+            .filter-panel {
+                padding: 0.85rem;
+            }
         }
     </style>
 </head>
 <body class="bg-zinc-50 text-gray-900 min-h-screen">
-    <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="page-shell">
         
         <!-- Header -->
-        <div class="text-center mb-12">
-            <div class="flex items-center justify-center gap-4 mb-4">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow">🚀</div>
-                <h1 class="text-4xl font-bold tracking-tight">代理工具大全</h1>
-            </div>
-            <p class="text-gray-600 text-base">简洁整理 · GitHub 直达</p>
+        <div class="page-header">
+            <p class="page-kicker">Proxy Tools</p>
+            <h1 class="page-title">代理工具大全</h1>
+            <p class="page-subtitle">按平台筛选，直接查看介绍、维护状态和下载入口。</p>
         </div>
 
         <div class="filter-panel">
@@ -467,8 +839,18 @@
 
         </div>
 
-        <div class="text-center text-gray-500 text-sm mt-16">
-            复制下方全部代码保存为 <span class="font-mono bg-white px-2 py-1 rounded border">proxy-tools.html</span> 即可使用
+    </div>
+    <div id="toolIntroModal" class="intro-modal" hidden>
+        <div class="intro-modal-backdrop" data-intro-close></div>
+        <div class="intro-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="toolIntroModalTitle">
+            <div class="intro-modal-header">
+                <div>
+                    <p class="intro-modal-eyebrow">工具介绍</p>
+                    <h2 id="toolIntroModalTitle" class="intro-modal-title">未知</h2>
+                </div>
+                <button type="button" class="intro-modal-close" data-intro-close>关闭</button>
+            </div>
+            <div id="toolIntroModalBody" class="intro-modal-body"></div>
         </div>
     </div>
     <script>
@@ -500,25 +882,520 @@
             "Surge 5": { label: "S5", colors: ["#0f172a", "#2563eb"] },
             "Loon": { label: "LO", colors: ["#4338ca", "#0ea5e9"] }
         };
+        const defaultToolProfile = {
+            author: "未知",
+            country: "未知",
+            link: "",
+            category: "未知",
+            license: "未知",
+            pricing: "未知",
+            maintenance: "未知",
+            audience: "未知",
+            difficulty: "未知",
+            core: "未知",
+            features: "未知",
+            pros: "未知",
+            summary: "暂无更多公开介绍。",
+            evaluation: "暂无更多公开评价。",
+            note: "未知"
+        };
+        const toolProfileConfig = {
+            "Karing": {
+                author: "KaringX",
+                category: "开源跨平台代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常用户",
+                difficulty: "中门槛",
+                core: "sing-box / Clash 规则",
+                features: "多平台、规则分流、订阅导入、桌面与移动端统一体验。",
+                pros: "平台覆盖很广，适合多设备混用。",
+                summary: "覆盖桌面与移动端的多平台代理客户端，适合统一管理多设备配置。",
+                evaluation: "GitHub 星标已过万，社区把它视为跨平台能力很完整的一档；多端同步与 sing-box 路线是它的主要吸引力。",
+                note: "作者地区未知。"
+            },
+            "Hiddify": {
+                author: "hiddify",
+                category: "开源跨平台代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "新手友好",
+                difficulty: "低门槛",
+                core: "sing-box / Xray / 多协议",
+                features: "一键导入订阅、多协议支持、跨平台、开源无广告。",
+                pros: "上手速度快，适合作为第一次接触代理客户端的选择。",
+                summary: "偏重易用性与多平台支持的代理客户端。",
+                evaluation: "GitHub 星标已到 2 万级，社区体量很大；常见口碑是开源无广告、上手友好，适合希望少折腾的用户。",
+                note: "作者地区未知。"
+            },
+            "clashmi": {
+                author: "KaringX",
+                category: "开源跨平台代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "多平台、规则分流、Apple 与桌面平台统一路线。",
+                pros: "适合希望多设备用同一套思路的人。",
+                summary: "面向多平台的 Mihomo / Clash 生态客户端。",
+                evaluation: "GitHub 星标接近 6k，在多端项目里不算小众；因为同时覆盖 iOS、Mac、Android 和桌面，常被当作多设备统一方案。",
+                note: "作者地区未知。"
+            },
+            "Clash Verge Rev": {
+                author: "clash-verge-rev",
+                category: "开源桌面代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常 / 进阶",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "现代 UI、订阅管理、系统代理、桌面日常使用能力完整。",
+                pros: "资料多、生态成熟、桌面端选择很稳。",
+                summary: "桌面端常见的 Mihomo 图形客户端，面向日常使用与进阶配置。",
+                evaluation: "GitHub 星标已到 10 万级，几乎是当前桌面端最热门的 GUI 之一；社区普遍评价是界面现代、功能全、资料多。",
+                note: "作者地区未知。"
+            },
+            "Throne": {
+                author: "throneproj",
+                category: "开源桌面代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "进阶用户",
+                difficulty: "高门槛",
+                core: "sing-box / 多协议",
+                features: "桌面多平台、协议覆盖广、路由和代理能力偏深。",
+                pros: "适合想要更强协议覆盖和更深配置能力的用户。",
+                summary: "面向桌面端的图形代理客户端，提供 Win / Mac / Linux 发布版本。",
+                evaluation: "GitHub 星标在 5k 级，社区关注度不低；常见评价是协议支持广、桌面能力强，但更偏进阶用户而不是纯小白路线。",
+                note: "作者地区未知。"
+            },
+            "FlClash": {
+                author: "chen08209",
+                category: "开源跨平台代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常用户",
+                difficulty: "中门槛",
+                core: "Clash.Meta / Mihomo",
+                features: "多平台、无广告、配置导入、可视化界面。",
+                pros: "热度高、发布频繁，日常使用场景覆盖比较完整。",
+                summary: "覆盖桌面与 Android 的图形客户端，兼顾轻量与功能完整度。",
+                evaluation: "GitHub 星标已到 3 万级，社区热度很高；普遍印象是开源无广告、界面友好，但因为用户量大、更新快，问题讨论也很多。",
+                note: "作者地区未知。"
+            },
+            "FlyClash": {
+                author: "GtxFury",
+                category: "桌面代理客户端",
+                license: "未知",
+                pricing: "未知",
+                maintenance: "维护中",
+                audience: "新手友好",
+                difficulty: "低门槛",
+                core: "Clash",
+                features: "简洁 UI、订阅管理、系统代理、托盘控制。",
+                pros: "界面直观，对偏好现代感设计的人比较友好。",
+                summary: "强调简洁美观界面的桌面代理工具。",
+                evaluation: "GitHub 星标已过千，属于相对新的桌面项目；社区讨论更多集中在界面观感和轻量化体验上。",
+                note: "公开来源未明确作者地区与收费模式。"
+            },
+            "V2rayN": {
+                author: "2dust",
+                category: "开源桌面代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常 / 进阶",
+                difficulty: "中门槛",
+                core: "Xray / sing-box / 多协议",
+                features: "协议兼容广、桌面端成熟、教程丰富、发布频繁。",
+                pros: "稳定、兼容强，是桌面老牌主力。",
+                summary: "老牌桌面客户端，长期被广泛使用。",
+                evaluation: "GitHub 星标已到 10 万级，是桌面端老牌主力；社区共识通常是稳定、教程多、兼容性强。",
+                note: "作者地区未知。"
+            },
+            "Clash Meta": {
+                author: "MetaCubeX",
+                category: "开源 Android 代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "Android 用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "规则分流、Android 功能完整、F-Droid 分发。",
+                pros: "生态成熟，Android 端可参考资料很多。",
+                summary: "面向 Android 的 Mihomo 图形客户端。",
+                evaluation: "GitHub 星标已到 3 万级，是 Android 端非常主流的 Mihomo 客户端；社区普遍认可它的生态兼容与功能完整度。",
+                note: "当前链接指向 Android 版本项目。"
+            },
+            "Surfboard": {
+                author: "getsurfboard",
+                category: "Android 代理客户端",
+                license: "未知",
+                pricing: "未知",
+                maintenance: "维护中",
+                audience: "Android 用户",
+                difficulty: "中门槛",
+                core: "Clash",
+                features: "订阅管理、控制面板、简洁界面、Android 日常使用。",
+                pros: "上手直观，历史用户基础不错。",
+                summary: "较早就有知名度的 Android 端代理工具。",
+                evaluation: "GitHub 星标在 8k 级，属于 Android 端老牌项目；社区常见印象是上手直观、历史用户多，但公开开发节奏没那么高调。",
+                note: "作者地区与收费模式未知。"
+            },
+            "YumeBox": {
+                author: "YumeLira",
+                category: "开源 Android 代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "尝鲜用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "Web dashboard、Sub-Store 可选、Android 客户端。",
+                pros: "更像 Android 端的新鲜备选路线。",
+                summary: "基于 Mihomo 内核的 Android 客户端。",
+                evaluation: "GitHub 星标仍在数百级，体量不大；更像 Android 端的小众备选，适合愿意尝试新项目的用户。",
+                note: "此处链接指向 Yume 分支。"
+            },
+            "clash-party": {
+                author: "mihomo-party-org",
+                category: "开源桌面代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常 / 进阶",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "桌面 GUI、订阅管理、Mihomo 日常能力完整。",
+                pros: "更新快、功能全，桌面端讨论度高。",
+                summary: "桌面端图形客户端，面向 Mihomo / Clash 使用场景。",
+                evaluation: "GitHub 星标已到 2 万级，桌面端热度很高；社区印象偏向功能全、更新快、适合 Mihomo 生态用户。",
+                note: "作者地区未知。"
+            },
+            "Sparkle": {
+                author: "INKCR0W",
+                category: "开源桌面代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "尝鲜用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "多主题、Sub-Store、WebDAV 备份、桌面 GUI。",
+                pros: "功能点新，适合想尝试新桌面方向的人。",
+                summary: "Another Mihomo GUI，定位为桌面端图形客户端。",
+                evaluation: "GitHub 星标仍在数百级，讨论量相对有限；更适合愿意尝鲜、关注新桌面 GUI 方向的用户。",
+                note: "作者地区未知。"
+            },
+            "OneBox": {
+                author: "OneOhCloud",
+                category: "开源跨平台代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "日常 / 进阶",
+                difficulty: "中门槛",
+                core: "sing-box",
+                features: "跨平台、Rust / Tauri、系统钥匙串、sing-box 生态。",
+                pros: "路线清晰、性能取向明显。",
+                summary: "基于 sing-box 内核的跨平台图形客户端。",
+                evaluation: "GitHub 星标在数百级，目前还是中小体量项目；社区更看重它走 sing-box 路线且跨平台覆盖完整。",
+                note: "README 对品牌资产另有使用说明。"
+            },
+            "AnyPortal": {
+                author: "AnyPortal",
+                category: "开源多内核 GUI 客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "进阶用户",
+                difficulty: "高门槛",
+                core: "多内核",
+                features: "v2ray、xray、sing-box、clash、mihomo 多核管理。",
+                pros: "兼容面很宽，适合一站式管理不同核心。",
+                summary: "支持 v2ray、xray、sing-box、clash、mihomo 等多种核心的 GUI 客户端。",
+                evaluation: "GitHub 星标在数百级，但多核心支持是它最显著的卖点；适合想把 v2ray、xray、sing-box、clash 放在一个界面里管理的人。",
+                note: "README 写明 iOS 当前处于 blocked 状态。"
+            },
+            "ClashMac": {
+                author: "666OS",
+                category: "macOS 原生代理客户端",
+                license: "闭源 / 仅二进制发布",
+                pricing: "未知",
+                maintenance: "维护中",
+                audience: "Mac 深度用户",
+                difficulty: "中门槛",
+                core: "Mihomo / 原生 macOS",
+                features: "原生拓扑、流量统计、Dashboard、TUN、系统整合。",
+                pros: "Mac 原生体验很强，视觉表现突出。",
+                summary: "强调原生 macOS 体验的代理工具。",
+                evaluation: "GitHub 星标已到 5k 级，在 Mac 专向项目里关注度不低；社区评价通常集中在原生 macOS 体验和视觉表现。",
+                note: "仓库 README 明确说明该项目为闭源应用。"
+            },
+            "ClashX Meta": {
+                author: "MetaCubeX",
+                category: "开源 macOS 代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "Mac 日常用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "状态栏控制、规则分流、轻量 Mac 体验。",
+                pros: "老牌稳定，Mac 用户资料多、迁移成本低。",
+                summary: "Mac 平台常见的 Mihomo / Clash 生态客户端。",
+                evaluation: "GitHub 星标在 5k 级，属于 Mac 端经典项目；社区长期把它当作轻量、熟悉、资料多的老牌选择。",
+                note: "作者地区未知。"
+            },
+            "sing-box": {
+                author: "SagerNet",
+                category: "官方图形客户端入口",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "进阶用户",
+                difficulty: "高门槛",
+                core: "sing-box 官方",
+                features: "官方 Android / Apple 客户端、TUN、平台特性。",
+                pros: "跟官方主线同步，适合紧跟 sing-box 生态。",
+                summary: "此处链接为 sing-box 官方客户端入口页，汇总 Android 与 Apple 平台图形客户端。",
+                evaluation: "这是官方图形客户端入口，社区普遍把它视为追官方主线最稳的路径；优点是方向明确，缺点是不同平台成熟度不完全一致。",
+                note: "当前卡片链接不是单一仓库，而是官方客户端文档入口。"
+            },
+            "stash": {
+                author: "STASH NETWORKS LIMITED",
+                category: "商业规则代理客户端",
+                license: "闭源",
+                pricing: "付费软件",
+                maintenance: "维护中",
+                audience: "Apple 日常 / 进阶",
+                difficulty: "中门槛",
+                core: "规则 / 脚本 / 多协议",
+                features: "规则集、脚本、重写、MitM、iCloud 同步。",
+                pros: "Apple 平台功能深，日用与进阶都能覆盖。",
+                summary: "偏重规则、重写与 Apple 平台体验的商业代理工具。",
+                evaluation: "App Store 评分约 4.3 / 5、评价已过千；在 Apple 圈里口碑一直不错，常被评价为规则能力强、细节深、适合日用与进阶。",
+                note: "开发者地区未知。"
+            },
+            "NekoBoxForAndroid": {
+                author: "MatsuriDayo",
+                category: "开源 Android 代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "Android 进阶",
+                difficulty: "高门槛",
+                core: "sing-box / 多协议",
+                features: "通用代理工具链、多协议、Android 深度功能。",
+                pros: "能力很强，适合愿意深入折腾的 Android 用户。",
+                summary: "Android 端常见代理客户端之一。",
+                evaluation: "GitHub 星标接近 2 万，是 Android 端知名项目；社区常把它视为功能丰富的强力选项，但对新手来说设置面会更复杂。",
+                note: "作者地区未知。"
+            },
+            "V2rayNG": {
+                author: "2dust",
+                category: "开源 Android 代理客户端",
+                license: "开源",
+                pricing: "免费",
+                maintenance: "维护中",
+                audience: "Android 日常 / 进阶",
+                difficulty: "中门槛",
+                core: "Xray / v2fly",
+                features: "成熟、协议广、教程多、Android 老牌路线。",
+                pros: "稳定成熟，长期被大量用户验证。",
+                summary: "长期流行的 Android 端代理客户端。",
+                evaluation: "GitHub 星标已过 5 万，是 Android 端老牌主力之一；社区最大共识通常是稳定、成熟、教程多。",
+                note: "作者地区未知。"
+            },
+            "Pandora-Box": {
+                author: "snakem982",
+                category: "桌面代理客户端",
+                license: "未知",
+                pricing: "未知",
+                maintenance: "暂停维护",
+                audience: "尝鲜用户",
+                difficulty: "中门槛",
+                core: "Mihomo",
+                features: "简易桌面 GUI、Mihomo、轻量路线。",
+                pros: "轻量简洁，适合作为桌面备选。",
+                summary: "面向桌面端的代理图形工具。",
+                evaluation: "GitHub 星标已过千，社区规模中等偏小；常被看作桌面端的另一种轻量备选。",
+                note: "当前公开页面未明确作者地区与收费模式。"
+            },
+            "Shadowrocket": {
+                author: "Shadow Launch Technology Limited",
+                link: "https://apps.apple.com/us/app/shadowrocket/id932747118",
+                category: "商业规则代理工具",
+                license: "闭源",
+                pricing: "App Store 付费软件",
+                maintenance: "维护中",
+                audience: "Apple 日常 / 进阶",
+                difficulty: "中门槛",
+                core: "多协议 / 规则 / 脚本",
+                features: "规则、脚本、重写、MitM、多协议。",
+                pros: "生态成熟，Apple 端教程和现成配置非常多。",
+                summary: "Apple 平台知名代理工具，支持脚本、重写与多种协议。",
+                evaluation: "App Store 评分约 4.5 / 5、评价过万；Apple 端知名度非常高，社区通常把它当作规则生态最成熟的常用选项之一。",
+                note: "开发者地区未知。"
+            },
+            "Quantumult X": {
+                author: "Cross Utility Ltd",
+                category: "商业网络工具 / 代理客户端",
+                license: "闭源",
+                pricing: "App Store 付费软件",
+                maintenance: "维护中",
+                audience: "进阶用户",
+                difficulty: "高门槛",
+                core: "规则 / 脚本 / 网络调试",
+                features: "重写、MitM、脚本、分流、细粒度配置。",
+                pros: "可定制能力极强，适合深度玩家。",
+                summary: "面向进阶用户的网络工具，支持较丰富的规则、重写与脚本能力。",
+                evaluation: "App Store 评分约 3.9 / 5、评价约 1.6K；社区普遍认可它的可定制能力很强，但也一致认为学习成本偏高。",
+                note: "开发者地区未知。"
+            },
+            "Surge 5": {
+                author: "Surge Networks Inc.",
+                category: "高级网络工具 / 代理客户端",
+                license: "闭源",
+                pricing: "含内购",
+                maintenance: "维护中",
+                audience: "开发 / 进阶",
+                difficulty: "高门槛",
+                core: "高级网络工具 / 代理",
+                features: "抓包、规则、脚本、Ponte、网络调试。",
+                pros: "专业能力强，开发调试场景优势明显。",
+                summary: "以网络调试、规则处理和高级代理能力见长的专业工具。",
+                evaluation: "App Store 评分约 4.2 / 5、评价接近千条；在进阶用户和开发调试场景里口碑很强，社区通常把它视为专业级工具。",
+                note: "App Store 当前页面显示 iOS / Apple TV，并标注含内购。"
+            },
+            "Loon": {
+                author: "Loon Lab Limited",
+                link: "https://loonapp.org/",
+                category: "商业网络工具 / 代理客户端",
+                license: "闭源",
+                pricing: "App Store 付费软件",
+                maintenance: "维护中",
+                audience: "Apple 日常 / 进阶",
+                difficulty: "中门槛",
+                core: "规则 / 脚本 / 多协议",
+                features: "脚本、规则、同步、Apple 全平台。",
+                pros: "功能与易用性比较平衡，Apple 用户接受度高。",
+                summary: "Apple 生态常见网络工具，支持较完整的规则、脚本与协议能力。",
+                evaluation: "App Store 评分约 4.0 / 5、评价数已有数百条；社区印象通常是功能完整、Apple 生态适配好，复杂度介于 Shadowrocket 和 Surge 之间。",
+                note: "开发者地区未知。"
+            }
+        };
+        const GITHUB_MAINTENANCE_CACHE_KEY = "vpn-tools-github-maintenance-v1";
+        const GITHUB_MAINTENANCE_CACHE_TTL = 1000 * 60 * 60 * 12;
+        const GITHUB_ACTIVE_WINDOW_DAYS = 180;
+        const githubMaintenanceCache = loadGitHubMaintenanceCache();
 
         // 为单文件页面生成本地 SVG 标识，避免额外引入大量外链图片。
         function createToolLogo(label, startColor, endColor) {
             const fontSize = label.length >= 2 ? 24 : 28;
             const svg = `
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="${startColor}" />
-                            <stop offset="100%" stop-color="${endColor}" />
-                        </linearGradient>
-                    </defs>
-                    <rect width="72" height="72" rx="20" fill="url(#logoGradient)" />
-                    <circle cx="56" cy="16" r="8" fill="#ffffff" fill-opacity="0.18" />
-                    <text x="36" y="43" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="${fontSize}" font-weight="700" letter-spacing="0.5" fill="#ffffff">${label}</text>
+                    <rect width="72" height="72" rx="18" fill="${startColor}" />
+                    <rect x="1" y="1" width="70" height="70" rx="17" fill="none" stroke="${endColor}" stroke-opacity="0.22" />
+                    <text x="36" y="43" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="${fontSize}" font-weight="700" letter-spacing="0.2" fill="#ffffff">${label}</text>
                 </svg>
             `;
 
             return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\"", "&quot;")
+                .replaceAll("'", "&#39;");
+        }
+
+        function getToolProfile(name) {
+            return { ...defaultToolProfile, ...(toolProfileConfig[name] || {}) };
+        }
+
+        function loadGitHubMaintenanceCache() {
+            try {
+                const rawValue = window.localStorage.getItem(GITHUB_MAINTENANCE_CACHE_KEY);
+                return rawValue ? JSON.parse(rawValue) : {};
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function saveGitHubMaintenanceCache() {
+            try {
+                window.localStorage.setItem(GITHUB_MAINTENANCE_CACHE_KEY, JSON.stringify(githubMaintenanceCache));
+            } catch (error) {
+                // 本地缓存失败时忽略，避免影响页面使用。
+            }
+        }
+
+        function getOpenSourceStatus(profile) {
+            if (profile.license.includes("开源")) {
+                return "开源";
+            }
+
+            if (profile.license.includes("闭源") || profile.license.includes("仅二进制")) {
+                return "闭源";
+            }
+
+            return "未知";
+        }
+
+        function getChipTone(kind, value) {
+            if (kind === "maintenance") {
+                if (value.includes("维护中")) {
+                    return "green";
+                }
+
+                if (value.includes("暂停")) {
+                    return "slate";
+                }
+
+                return "slate";
+            }
+
+            if (kind === "difficulty") {
+                if (value.includes("低")) {
+                    return "green";
+                }
+
+                if (value.includes("中")) {
+                    return "amber";
+                }
+
+                if (value.includes("高")) {
+                    return "rose";
+                }
+
+                return "slate";
+            }
+
+            if (kind === "open") {
+                if (value === "开源") {
+                    return "green";
+                }
+
+                if (value === "闭源") {
+                    return "slate";
+                }
+
+                return "slate";
+            }
+
+            return "blue";
         }
 
         function extractPlatformTokens(value) {
@@ -542,6 +1419,191 @@
             });
 
             return Array.from(platformMap, ([key, label]) => ({ key, label }));
+        }
+
+        function getCardName(cardElement) {
+            const titleElement = cardElement.querySelector("h3");
+            return titleElement ? titleElement.textContent.trim() : "未知";
+        }
+
+        function getCardPlatformsText(cardElement) {
+            const labels = collectCardPlatforms(cardElement).map((item) => item.label);
+            return labels.length > 0 ? labels.join(" / ") : "未知";
+        }
+
+        function getCardPrimaryLink(cardElement) {
+            const linkElement = cardElement.querySelector("a[href]");
+            return linkElement ? linkElement.getAttribute("href") : "";
+        }
+
+        function extractGitHubRepo(urlValue) {
+            if (!urlValue) {
+                return "";
+            }
+
+            try {
+                const url = new URL(urlValue);
+                const hostname = url.hostname.replace(/^www\./, "").toLowerCase();
+
+                if (hostname !== "github.com") {
+                    return "";
+                }
+
+                const segments = url.pathname.split("/").filter(Boolean);
+
+                if (segments.length < 2) {
+                    return "";
+                }
+
+                return `${segments[0]}/${segments[1].replace(/\.git$/i, "")}`;
+            } catch (error) {
+                return "";
+            }
+        }
+
+        function isFreshMaintenanceCache(record) {
+            return Boolean(record && record.checkedAt && (Date.now() - record.checkedAt) < GITHUB_MAINTENANCE_CACHE_TTL);
+        }
+
+        function resolveGitHubMaintenanceStatus(repoPayload) {
+            if (repoPayload.archived || repoPayload.disabled) {
+                return "暂停维护";
+            }
+
+            if (!repoPayload.pushed_at) {
+                return "暂停维护";
+            }
+
+            const pushedAt = new Date(repoPayload.pushed_at).getTime();
+
+            if (Number.isNaN(pushedAt)) {
+                return "暂停维护";
+            }
+
+            const inactiveDays = (Date.now() - pushedAt) / (1000 * 60 * 60 * 24);
+            return inactiveDays <= GITHUB_ACTIVE_WINDOW_DAYS ? "维护中" : "暂停维护";
+        }
+
+        function setToolMaintenanceStatus(name, maintenance) {
+            toolProfileConfig[name] = {
+                ...(toolProfileConfig[name] || {}),
+                maintenance
+            };
+        }
+
+        function updateCardMaintenanceStatus(cardElement, maintenance) {
+            const maintenanceChip = cardElement.querySelector('[data-tool-field="maintenance"]');
+
+            if (!maintenanceChip) {
+                return;
+            }
+
+            maintenanceChip.textContent = maintenance;
+            maintenanceChip.dataset.tone = getChipTone("maintenance", maintenance);
+        }
+
+        function updateOpenModalMaintenanceStatus(name, maintenance) {
+            const modalElement = document.getElementById("toolIntroModal");
+
+            if (!modalElement || modalElement.hidden || modalElement.dataset.toolName !== name) {
+                return;
+            }
+
+            const maintenanceField = modalElement.querySelector('[data-intro-field="maintenance"]');
+
+            if (maintenanceField) {
+                maintenanceField.textContent = maintenance;
+            }
+        }
+
+        function applyResolvedMaintenanceStatus(name, cardElement, maintenance) {
+            setToolMaintenanceStatus(name, maintenance);
+            updateCardMaintenanceStatus(cardElement, maintenance);
+            updateOpenModalMaintenanceStatus(name, maintenance);
+        }
+
+        function collectGitHubMaintenanceTargets() {
+            return Array.from(document.querySelectorAll("#toolsGrid .tool-card"))
+                .map((cardElement) => {
+                    const name = getCardName(cardElement);
+                    const profile = getToolProfile(name);
+                    const repo = extractGitHubRepo(getCardPrimaryLink(cardElement) || profile.link);
+
+                    return repo ? { name, repo, cardElement } : null;
+                })
+                .filter(Boolean);
+        }
+
+        function applyCachedGitHubMaintenanceStatuses(targets) {
+            targets.forEach(({ name, repo, cardElement }) => {
+                const cachedRecord = githubMaintenanceCache[repo];
+
+                if (cachedRecord && cachedRecord.status) {
+                    applyResolvedMaintenanceStatus(name, cardElement, cachedRecord.status);
+                }
+            });
+        }
+
+        async function fetchGitHubMaintenanceStatus(repo) {
+            const response = await fetch(`https://api.github.com/repos/${repo}`);
+
+            if (!response.ok) {
+                throw new Error(`GitHub request failed: ${response.status}`);
+            }
+
+            const repoPayload = await response.json();
+            return resolveGitHubMaintenanceStatus(repoPayload);
+        }
+
+        async function refreshGitHubMaintenanceStatuses() {
+            if (typeof window.fetch !== "function") {
+                return;
+            }
+
+            const targets = collectGitHubMaintenanceTargets();
+
+            if (targets.length === 0) {
+                return;
+            }
+
+            applyCachedGitHubMaintenanceStatuses(targets);
+
+            const staleTargets = targets.filter(({ repo }) => !isFreshMaintenanceCache(githubMaintenanceCache[repo]));
+
+            await Promise.allSettled(staleTargets.map(async ({ name, repo, cardElement }) => {
+                const maintenance = await fetchGitHubMaintenanceStatus(repo);
+
+                githubMaintenanceCache[repo] = {
+                    status: maintenance,
+                    checkedAt: Date.now()
+                };
+                saveGitHubMaintenanceCache();
+                applyResolvedMaintenanceStatus(name, cardElement, maintenance);
+            }));
+        }
+
+        function scheduleGitHubMaintenanceRefresh() {
+            const startRefresh = () => {
+                const enqueueRefresh = () => {
+                    window.setTimeout(() => {
+                        refreshGitHubMaintenanceStatuses();
+                    }, 0);
+                };
+
+                if ("requestIdleCallback" in window) {
+                    window.requestIdleCallback(enqueueRefresh, { timeout: 2000 });
+                    return;
+                }
+
+                window.setTimeout(enqueueRefresh, 400);
+            };
+
+            if (document.readyState === "complete") {
+                startRefresh();
+                return;
+            }
+
+            window.addEventListener("load", startRefresh, { once: true });
         }
 
         function renderPlatformFilters() {
@@ -624,8 +1686,169 @@
             });
         }
 
+        function buildToolSummaryCard(profile) {
+            const summaryElement = document.createElement("div");
+            summaryElement.className = "tool-meta-preview";
+            const openSourceStatus = getOpenSourceStatus(profile);
+            summaryElement.innerHTML = `
+                <div class="tool-chip-row">
+                    <span class="tool-chip" data-tool-field="maintenance" data-tone="${getChipTone("maintenance", profile.maintenance)}">${escapeHtml(profile.maintenance)}</span>
+                    <span class="tool-chip" data-tone="${getChipTone("audience", profile.audience)}">${escapeHtml(profile.audience)}</span>
+                    <span class="tool-chip" data-tone="${getChipTone("open", openSourceStatus)}">${escapeHtml(openSourceStatus)}</span>
+                    <span class="tool-chip" data-tone="${getChipTone("difficulty", profile.difficulty)}">${escapeHtml(profile.difficulty)}</span>
+                </div>
+                <div class="tool-meta-row">
+                    <span class="tool-meta-label">简评</span>
+                    <span class="tool-meta-value tool-meta-value-review">${escapeHtml(profile.evaluation)}</span>
+                </div>
+            `;
+
+            return summaryElement;
+        }
+
+        function openToolIntroModal(cardElement) {
+            const modalElement = document.getElementById("toolIntroModal");
+            const titleElement = document.getElementById("toolIntroModalTitle");
+            const bodyElement = document.getElementById("toolIntroModalBody");
+
+            if (!modalElement || !titleElement || !bodyElement) {
+                return;
+            }
+
+            const name = getCardName(cardElement);
+            const profile = getToolProfile(name);
+            const platformsText = getCardPlatformsText(cardElement);
+            const link = getCardPrimaryLink(cardElement) || profile.link;
+            const openSourceStatus = getOpenSourceStatus(profile);
+
+            titleElement.textContent = name;
+            modalElement.dataset.toolName = name;
+            bodyElement.innerHTML = `
+                <div class="intro-modal-grid">
+                    <div class="intro-field">
+                        <span class="intro-field-label">软件类型</span>
+                        <p class="intro-field-value">${escapeHtml(profile.category)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">维护状态</span>
+                        <p class="intro-field-value" data-intro-field="maintenance">${escapeHtml(profile.maintenance)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">适合人群</span>
+                        <p class="intro-field-value">${escapeHtml(profile.audience)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">开源状态</span>
+                        <p class="intro-field-value">${escapeHtml(openSourceStatus)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">上手难度</span>
+                        <p class="intro-field-value">${escapeHtml(profile.difficulty)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">核心生态</span>
+                        <p class="intro-field-value">${escapeHtml(profile.core)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">收费方式</span>
+                        <p class="intro-field-value">${escapeHtml(profile.pricing)}</p>
+                    </div>
+                    <div class="intro-field">
+                        <span class="intro-field-label">支持平台</span>
+                        <p class="intro-field-value">${escapeHtml(platformsText)}</p>
+                    </div>
+                    <div class="intro-field" style="grid-column: 1 / -1;">
+                        <span class="intro-field-label">链接</span>
+                        <p class="intro-field-value">${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(link)}</a>` : "未知"}</p>
+                    </div>
+                </div>
+                <div class="intro-section">
+                    <h3 class="intro-section-title">简介</h3>
+                    <p class="intro-section-text">${escapeHtml(profile.summary)}</p>
+                </div>
+                <div class="intro-section">
+                    <h3 class="intro-section-title">核心功能</h3>
+                    <p class="intro-section-text">${escapeHtml(profile.features)}</p>
+                </div>
+                <div class="intro-section">
+                    <h3 class="intro-section-title">优点</h3>
+                    <p class="intro-section-text">${escapeHtml(profile.pros)}</p>
+                </div>
+                <div class="intro-section">
+                    <h3 class="intro-section-title">软件简评</h3>
+                    <p class="intro-section-text">${escapeHtml(profile.evaluation)}</p>
+                </div>
+            `;
+
+            modalElement.hidden = false;
+            document.body.classList.add("intro-modal-open");
+        }
+
+        function closeToolIntroModal() {
+            const modalElement = document.getElementById("toolIntroModal");
+
+            if (!modalElement || modalElement.hidden) {
+                return;
+            }
+
+            modalElement.hidden = true;
+            delete modalElement.dataset.toolName;
+            document.body.classList.remove("intro-modal-open");
+        }
+
+        function hydrateToolProfiles() {
+            document.querySelectorAll("#toolsGrid .tool-card").forEach((cardElement) => {
+                if (cardElement.dataset.profileHydrated === "true") {
+                    return;
+                }
+
+                const name = getCardName(cardElement);
+                const profile = getToolProfile(name);
+                const platformGroup = cardElement.querySelector(".platform-badge")?.parentElement;
+                cardElement.dataset.toolName = name;
+
+                if (platformGroup) {
+                    platformGroup.insertAdjacentElement("afterend", buildToolSummaryCard(profile));
+                }
+
+                const actionsElement = document.createElement("div");
+                actionsElement.className = "tool-actions";
+
+                const introButtonElement = document.createElement("button");
+                introButtonElement.type = "button";
+                introButtonElement.className = "tool-intro-button";
+                introButtonElement.textContent = "介绍";
+                introButtonElement.addEventListener("click", () => openToolIntroModal(cardElement));
+
+                actionsElement.appendChild(introButtonElement);
+                cardElement.appendChild(actionsElement);
+                cardElement.dataset.profileHydrated = "true";
+            });
+        }
+
+        function initToolIntroModal() {
+            const modalElement = document.getElementById("toolIntroModal");
+
+            if (!modalElement) {
+                return;
+            }
+
+            modalElement.querySelectorAll("[data-intro-close]").forEach((closeElement) => {
+                closeElement.addEventListener("click", closeToolIntroModal);
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    closeToolIntroModal();
+                }
+            });
+        }
+
         renderPlatformFilters();
         applyToolLogos();
+        hydrateToolProfiles();
+        initToolIntroModal();
+        scheduleGitHubMaintenanceRefresh();
     </script>
 </body>
 </html>
