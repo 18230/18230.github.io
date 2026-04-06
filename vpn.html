@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代理工具大全</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .platform-badge {
+            /* 平台标签允许在卡片内自动换行，避免长文本撑破布局 */
+            font-size: 0.6875rem;
+            line-height: 1.35;
+            padding: 3px 9px;
+            border-radius: 9999px;
+            max-width: 100%;
+            min-width: 0;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            text-align: center;
+        }
+        .tool-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+        .tool-title-text {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+        .tool-logo {
+            width: 2.25rem;
+            height: 2.25rem;
+            flex: none;
+            border-radius: 0.875rem;
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.45);
+            background: #ffffff;
+        }
+        .filter-panel {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        .filter-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #475569;
+            white-space: nowrap;
+        }
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+        }
+        .filter-button {
+            border: 1px solid #dbe3f0;
+            border-radius: 9999px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            padding: 0.45rem 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .filter-button:hover {
+            border-color: #93c5fd;
+            color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .filter-button.is-active {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 12px 20px -16px rgba(37, 99, 235, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-gray-900 min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="flex items-center justify-center gap-4 mb-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-4xl shadow">🚀</div>
+                <h1 class="text-4xl font-bold tracking-tight">代理工具大全</h1>
+            </div>
+            <p class="text-gray-600 text-base">简洁整理 · GitHub 直达</p>
+        </div>
+
+        <div class="filter-panel">
+            <span class="filter-label">平台筛选</span>
+            <div id="platformFilters" class="filter-group"></div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Karing -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Karing</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                </div>
+                <a href="https://github.com/KaringX/karing" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/KaringX/karing
+                </a>
+            </div>
+
+            <!-- Hiddify -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Hiddify</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                </div>
+                <a href="https://github.com/hiddify/hiddify-app" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/hiddify/hiddify-app
+                </a>
+            </div>
+
+            <!-- clashmi -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">clashmi</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                </div>
+                <a href="https://github.com/KaringX/clashmi" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/KaringX/clashmi
+                </a>
+            </div>
+
+            <!-- Clash Verge Rev -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Clash Verge Rev</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/clash-verge-rev/clash-verge-rev
+                </a>
+            </div>
+
+            <!-- Throne -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Throne</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/throneproj/Throne" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/throneproj/Throne
+                </a>
+            </div>
+
+            <!-- FlClash -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">FlClash</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/chen08209/FlClash" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/chen08209/FlClash
+                </a>
+            </div>
+
+            <!-- FlyClash -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">FlyClash</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/GtxFury/FlyClash" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/GtxFury/FlyClash
+                </a>
+            </div>
+
+            <!-- V2rayN -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">V2rayN</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/2dust/v2rayN" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/2dust/v2rayN
+                </a>
+            </div>
+
+            <!-- Clash Meta -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Clash Meta</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/MetaCubeX/Clash.Meta" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/MetaCubeX/ClashMetaForAndroid
+                </a>
+            </div>
+
+            <!-- Surfboard -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Surfboard</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/getsurfboard/surfboard" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/getsurfboard/surfboard
+                </a>
+            </div>
+
+            <!-- YumeBox -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">YumeBox</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/YumeLira/YumeBox/tree/Yume" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/YumeLira/YumeBox/tree/Yume
+                </a>
+            </div>
+
+            <!-- clash-party -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">clash-party</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/mihomo-party-org/clash-party" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/mihomo-party-org/clash-party
+                </a>
+            </div>
+
+            <!-- Sparkle -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Sparkle</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/INKCR0W/sparkle" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/INKCR0W/sparkle
+                </a>
+            </div>
+
+            <!-- OneBox -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">OneBox</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/OneOhCloud/OneBox" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/OneOhCloud/OneBox
+                </a>
+            </div>
+
+            <!-- AnyPortal -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">AnyPortal</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/AnyPortal/AnyPortal" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/AnyPortal/AnyPortal
+                </a>
+            </div>
+
+            <!-- ClashMac -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">ClashMac</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                </div>
+                <a href="https://github.com/666OS/ClashMac" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/666OS/ClashMac
+                </a>
+            </div>
+
+            <!-- ClashX Meta -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">ClashX Meta</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                </div>
+                <a href="https://github.com/MetaCubeX/ClashX.Meta" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/MetaCubeX/ClashX.Meta
+                </a>
+            </div>
+
+            <!-- sing-box -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">sing-box</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">Apple TV</span>
+                </div>
+                <a href="https://sing-box.sagernet.org/clients/" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://sing-box.sagernet.org/clients/
+                </a>
+            </div>
+
+            <!-- stash -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">stash</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">MAC</span>
+                    <span class="platform-badge bg-green-100 text-green-700">iOS</span>
+                </div>
+                <a href="https://github.com/xchacha20-poly1305/husi" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    http://stash.ws/
+                </a>
+                <p class="text-gray-500 text-sm mt-4">付费软件</p>
+            </div>
+
+            <!-- NekoBoxForAndroid -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">NekoBoxForAndroid</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/MatsuriDayo/NekoBoxForAndroid
+                </a>
+            </div>
+
+            <!-- V2rayNG -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">V2rayNG</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-green-100 text-green-700">Android</span>
+                </div>
+                <a href="https://github.com/2dust/v2rayNG" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/2dust/v2rayNG
+                </a>
+            </div>
+
+            <!-- Pandora-Box -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Pandora-Box</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-blue-100 text-blue-700">Win</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Mac</span>
+                    <span class="platform-badge bg-blue-100 text-blue-700">Linux</span>
+                </div>
+                <a href="https://github.com/snakem982/Pandora-Box" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://github.com/snakem982/Pandora-Box
+                </a>
+            </div>
+
+            <!-- Shadowrocket -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Shadowrocket</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS / Apple TV</span>
+                </div>
+                <p class="text-gray-500 text-sm">App Store 付费软件</p>
+            </div>
+
+            <!-- Quantumult X -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Quantumult X</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">Mac</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">Apple TV</span>
+                </div>
+                <a href="https://apps.apple.com/us/app/quantumult-x/id1443988620" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://apps.apple.com/us/app/quantumult-x/id1443988620
+                </a>
+                <p class="text-gray-500 text-sm mt-4">App Store 付费软件</p>
+            </div>
+
+            <!-- Surge 5 -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Surge 5</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS</span>
+                    <span class="platform-badge bg-purple-100 text-purple-700">Apple TV</span>
+                </div>
+                <a href="https://apps.apple.com/us/app/surge-5/id1442620678" target="_blank" 
+                   class="block text-sm text-blue-600 hover:text-blue-700 font-medium break-all hover:underline">
+                    https://apps.apple.com/us/app/surge-5/id1442620678
+                </a>
+                <p class="text-gray-500 text-sm mt-4">含内购</p>
+            </div>
+
+            <!-- Loon -->
+            <div class="tool-card bg-white border border-gray-200 rounded-3xl p-8 card-hover">
+                <h3 class="text-2xl font-semibold mb-6">Loon</h3>
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="platform-badge bg-purple-100 text-purple-700">iOS / Mac / Apple TV</span>
+                </div>
+                <p class="text-gray-500 text-sm">App Store 付费软件</p>
+            </div>
+
+        </div>
+
+        <div class="text-center text-gray-500 text-sm mt-16">
+            复制下方全部代码保存为 <span class="font-mono bg-white px-2 py-1 rounded border">proxy-tools.html</span> 即可使用
+        </div>
+    </div>
+    <script>
+        const toolLogoConfig = {
+            "Karing": { label: "KA", colors: ["#0f766e", "#2dd4bf"] },
+            "Hiddify": { label: "HI", colors: ["#2563eb", "#60a5fa"] },
+            "clashmi": { label: "CM", colors: ["#1d4ed8", "#06b6d4"] },
+            "Clash Verge Rev": { label: "CV", colors: ["#4338ca", "#22d3ee"] },
+            "Throne": { label: "TH", colors: ["#1f2937", "#8b5cf6"] },
+            "FlClash": { label: "FL", colors: ["#0284c7", "#38bdf8"] },
+            "FlyClash": { label: "FY", colors: ["#1e293b", "#2563eb"] },
+            "V2rayN": { label: "VN", colors: ["#334155", "#3b82f6"] },
+            "Clash Meta": { label: "MT", colors: ["#059669", "#22c55e"] },
+            "Surfboard": { label: "SB", colors: ["#0891b2", "#38bdf8"] },
+            "YumeBox": { label: "YB", colors: ["#7c3aed", "#f472b6"] },
+            "clash-party": { label: "CP", colors: ["#111827", "#6366f1"] },
+            "Sparkle": { label: "SP", colors: ["#ec4899", "#f59e0b"] },
+            "OneBox": { label: "OB", colors: ["#0f172a", "#14b8a6"] },
+            "AnyPortal": { label: "AP", colors: ["#0f172a", "#0ea5e9"] },
+            "ClashMac": { label: "CM", colors: ["#111827", "#64748b"] },
+            "ClashX Meta": { label: "CX", colors: ["#111827", "#3b82f6"] },
+            "sing-box": { label: "SG", colors: ["#0f766e", "#06b6d4"] },
+            "stash": { label: "ST", colors: ["#0f766e", "#34d399"] },
+            "NekoBoxForAndroid": { label: "NB", colors: ["#16a34a", "#84cc16"] },
+            "V2rayNG": { label: "VG", colors: ["#475569", "#06b6d4"] },
+            "Pandora-Box": { label: "PB", colors: ["#b45309", "#f59e0b"] },
+            "Shadowrocket": { label: "SR", colors: ["#7c3aed", "#ec4899"] },
+            "Quantumult X": { label: "QX", colors: ["#1d4ed8", "#7c3aed"] },
+            "Surge 5": { label: "S5", colors: ["#0f172a", "#2563eb"] },
+            "Loon": { label: "LO", colors: ["#4338ca", "#0ea5e9"] }
+        };
+
+        // 为单文件页面生成本地 SVG 标识，避免额外引入大量外链图片。
+        function createToolLogo(label, startColor, endColor) {
+            const fontSize = label.length >= 2 ? 24 : 28;
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${startColor}" />
+                            <stop offset="100%" stop-color="${endColor}" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="72" height="72" rx="20" fill="url(#logoGradient)" />
+                    <circle cx="56" cy="16" r="8" fill="#ffffff" fill-opacity="0.18" />
+                    <text x="36" y="43" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="${fontSize}" font-weight="700" letter-spacing="0.5" fill="#ffffff">${label}</text>
+                </svg>
+            `;
+
+            return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+        }
+
+        function extractPlatformTokens(value) {
+            return value
+                .split(/[\/、,，]+/)
+                .map((item) => item.replace(/\s+/g, " ").trim())
+                .filter(Boolean);
+        }
+
+        function collectCardPlatforms(cardElement) {
+            const platformMap = new Map();
+
+            cardElement.querySelectorAll(".platform-badge").forEach((badgeElement) => {
+                extractPlatformTokens(badgeElement.textContent).forEach((platformLabel) => {
+                    const platformKey = platformLabel.toLowerCase();
+
+                    if (!platformMap.has(platformKey)) {
+                        platformMap.set(platformKey, platformLabel);
+                    }
+                });
+            });
+
+            return Array.from(platformMap, ([key, label]) => ({ key, label }));
+        }
+
+        function renderPlatformFilters() {
+            const filterContainer = document.getElementById("platformFilters");
+            const toolCards = Array.from(document.querySelectorAll("#toolsGrid .tool-card"));
+
+            if (!filterContainer || toolCards.length === 0) {
+                return;
+            }
+
+            const platformMap = new Map();
+
+            toolCards.forEach((cardElement) => {
+                const platforms = collectCardPlatforms(cardElement);
+                cardElement.dataset.platformKeys = platforms.map((item) => item.key).join("|");
+
+                platforms.forEach(({ key, label }) => {
+                    if (!platformMap.has(key)) {
+                        platformMap.set(key, label);
+                    }
+                });
+            });
+
+            const filterItems = [{ key: "__all__", label: "全部" }]
+                .concat(Array.from(platformMap, ([key, label]) => ({ key, label })));
+
+            function updateActiveFilter(selectedKey) {
+                filterContainer.querySelectorAll(".filter-button").forEach((buttonElement) => {
+                    buttonElement.classList.toggle("is-active", buttonElement.dataset.platformKey === selectedKey);
+                });
+
+                toolCards.forEach((cardElement) => {
+                    if (selectedKey === "__all__") {
+                        cardElement.hidden = false;
+                        return;
+                    }
+
+                    const platformKeys = (cardElement.dataset.platformKeys || "").split("|").filter(Boolean);
+                    cardElement.hidden = !platformKeys.includes(selectedKey);
+                });
+            }
+
+            filterItems.forEach(({ key, label }) => {
+                const buttonElement = document.createElement("button");
+                buttonElement.type = "button";
+                buttonElement.className = "filter-button";
+                buttonElement.dataset.platformKey = key;
+                buttonElement.textContent = label;
+                buttonElement.addEventListener("click", () => updateActiveFilter(key));
+                filterContainer.appendChild(buttonElement);
+            });
+
+            updateActiveFilter("__all__");
+        }
+
+        function applyToolLogos() {
+            document.querySelectorAll(".tool-card h3").forEach((titleElement) => {
+                const name = titleElement.textContent.trim();
+                const config = toolLogoConfig[name];
+
+                if (!config || titleElement.dataset.logoApplied === "true") {
+                    return;
+                }
+
+                const logoElement = document.createElement("img");
+                logoElement.className = "tool-logo";
+                logoElement.alt = `${name} logo`;
+                logoElement.decoding = "async";
+                logoElement.loading = "lazy";
+                logoElement.src = createToolLogo(config.label, config.colors[0], config.colors[1]);
+
+                const textElement = document.createElement("span");
+                textElement.className = "tool-title-text";
+                textElement.textContent = name;
+
+                titleElement.textContent = "";
+                titleElement.classList.add("tool-title");
+                titleElement.dataset.logoApplied = "true";
+                titleElement.append(logoElement, textElement);
+            });
+        }
+
+        renderPlatformFilters();
+        applyToolLogos();
+    </script>
+</body>
+</html>
