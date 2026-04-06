@@ -97,6 +97,12 @@
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
+        .page-title-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+        }
         .page-title {
             margin: 0;
             font-size: 2.25rem;
@@ -104,11 +110,45 @@
             line-height: 1.1;
             color: var(--text);
         }
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.32rem 0.58rem;
+            border: 1px solid #f3dcc3;
+            border-radius: var(--radius-sm);
+            background: #fff4e8;
+            color: #9a3412;
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .live-dot {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 9999px;
+            background: #f97316;
+            box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.35);
+            animation: livePulse 1.8s ease-out infinite;
+        }
         .page-subtitle {
             margin: 0.65rem 0 0;
             font-size: 0.95rem;
             line-height: 1.6;
             color: var(--muted);
+        }
+        @keyframes livePulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.35);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(249, 115, 22, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+            }
         }
         .filter-panel {
             display: flex;
@@ -475,7 +515,13 @@
         <!-- Header -->
         <div class="page-header">
             <p class="page-kicker">Proxy Tools</p>
-            <h1 class="page-title">代理工具大全</h1>
+            <div class="page-title-row">
+                <h1 class="page-title">代理工具大全</h1>
+                <span class="live-badge" title="GitHub 项目维护状态异步更新">
+                    <span class="live-dot" aria-hidden="true"></span>
+                    定期更新
+                </span>
+            </div>
             <p class="page-subtitle">按平台筛选，直接查看介绍、维护状态和下载入口。</p>
         </div>
 
